@@ -1,6 +1,6 @@
 {
   "name": "node-pkg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "test node packeg",
   "main": "index.js",
   "scripts": {
