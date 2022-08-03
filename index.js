@@ -1,3 +1,4 @@
+const { chromium } = require('playwright');
 const request = require('request');
 const zlib = require('zlib');
 const { Console } = require("console");
@@ -11,6 +12,16 @@ const myLogger = new Console({
   stdout: fs.createWriteStream("normalStdout.txt"),
   stderr: fs.createWriteStream("errStdErr.txt"),
 });
+
+exports.open = async(url) => {
+    const context = await chromium.launchPersistentContext(__dirname+'/cache',{
+      headless:false,
+      locale: 'en-US',
+      viewport:null
+    });
+    const page = await context.pages()[0];
+    await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+}
 
 exports.runGetStock = async(url, proxy_url) => {
   return new Promise((resolve, reject) => {
